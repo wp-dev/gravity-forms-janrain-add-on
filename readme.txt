@@ -3,7 +3,7 @@ Contributors: goldenapples
 Tags: social login,forms,form prefill
 Requires at least: 3.4
 Tested up to: 3.5
-Stable tag: 0.1a
+Stable tag: 0.1b
 License: GPLv2 or later
 
 Integrate Gravity Forms with Janrain Engage social login to pre-fill forms.
