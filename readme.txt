@@ -24,7 +24,8 @@ Works with the free Basic app available from Janrain - sign up at
 http://rpxnow.com - although some extended profile data fields are only
 available with the Plus level ($10/mo - see 
 [Janrain Engage Pricing](http://janrain.com/products/engage/engage-pricing/) 
-for more information.
+for more information.)
+
 
 == Installation ==
 
@@ -38,9 +39,11 @@ for more information.
 	prefill for, and set the "Prefill with" value for each of the fields which 
 	you would like to pull info from the social profile.
 
+
 == Frequently Asked Questions ==
 
-= I can't find Facebook/Twitter/other provider in the list of available
+
+= I can't find (Facebook/Twitter/other provider) in the list of available
 providers. =
 
 Some providers require configuration in order to be available. To use Facebook
@@ -53,6 +56,7 @@ to the "Setup Widget" page on your rpxnow.com dashboard (find it under
 sidebar). Each of the providers which requires configuration will have a gray
 gear icon next to it; click that icon and follow the wizard steps.
 
+
 = I want to be able to access a field that a provider offers, but it's not
 populating in my forms. =
 
@@ -64,6 +68,7 @@ that asking users for too many permissions is more likely to scare them away -
 
 **NOTE**: some extended profile fields are only available to Plus or higher
 service levels.
+
 
 = How can I add more prefill fields beyond the default ones? =
 
@@ -91,6 +96,7 @@ Facebook (or any other provider that includes that field):
 	function religion_field( $profile ) {
 		return $profile->merged_poco->religion;
 	}
+
 
 == Screenshots ==
 
