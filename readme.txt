@@ -43,8 +43,8 @@ for more information.)
 == Frequently Asked Questions ==
 
 
-=I can't find (Facebook/Twitter/other provider) in the list of available
-providers.=
+= I can't find (Facebook/Twitter/other provider) in the list of available
+providers. = 
 
 Some providers require configuration in order to be available. To use Facebook
 login through Janrain Engage, for example, you will have to create an app on
@@ -57,8 +57,8 @@ sidebar). Each of the providers which requires configuration will have a gray
 gear icon next to it; click that icon and follow the wizard steps.
 
 
-=I want to be able to access a field that a provider offers, but it's not
-populating in my forms.=
+= I want to be able to access a field that a provider offers, but it's not
+populating in my forms. = 
 
 Some profile fields require requesting extended profile data. You can configure
 the permissions your app requests of the user on an "a la carte" basis from your
@@ -70,7 +70,7 @@ that asking users for too many permissions is more likely to scare them away -
 service levels.
 
 
-=How can I add more prefill fields beyond the default ones?=
+= How can I add more prefill fields beyond the default ones? = 
 
 This plugin has been designed to be easy to extend. If you want to add more
 fields, you will need to hook a function to the filter `janrain_gforms_profile_data` 
