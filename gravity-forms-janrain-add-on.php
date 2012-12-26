@@ -4,7 +4,7 @@ Plugin Name: Gravity Forms Janrain Add-on
 Description: Integrate Gravity Forms with Janrain Engage social login to pre-fill forms.
 Author: janrain, goldenapples
 Author URI: http://janrain.com
-Version: 0.1b
+Version: 0.2
 License: GPL V2 or higher
 
 ================================================================================
@@ -26,8 +26,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
+// This is a hack to get around symlink resolving issues, see
+// http://wordpress.stackexchange.com/questions/15202/plugins-in-symlinked-directories
+// Hopefully a better solution will be found in future versions of WordPress.
+if ( isset( $plugin ) )
+	define( 'JANRAIN_GFORMS_DIRECTORY', plugin_dir_url( $plugin ) );
+else define( 'JANRAIN_GFORMS_DIRECTORY', plugin_dir_url( __FILE__ ) );
 
-add_filter( 'gform_field_content', 'janrain_social_signin_gfield', 10, 5 );
+
 
 /**
  * Output of the Engage signin input field
@@ -73,6 +79,8 @@ function janrain_social_signin_gfield( $content, $field, $value, $lead_id, $form
 	return $content;
 }
 
+add_filter( 'gform_field_content', 'janrain_social_signin_gfield', 10, 5 );
+
 
 /**
  * Outputs the widget JS in the site footer
@@ -82,10 +90,10 @@ function janrain_engage_widget_script( $form_id ) {
 
 	$settings = get_option( 'janrain_settings' );
 
-	// Dummy config values for bootstrapping
+	// Config values for client app
 	$app_settings = array(
 		'appid' => $settings['appid'],
-		'appurl' => $settings['appurl'],
+		'appurl' => untrailingslashit( $settings['appurl'] ),
 		'providers' => '[ "' . implode( '", "', $settings['providers'] ) . '" ]',
 		'token_url' => admin_url( 'admin-ajax.php?action=return-token&form='.$form_id ),
 		'count' => count( $settings['providers'] ),
@@ -100,7 +108,7 @@ function janrain_engage_widget_script( $form_id ) {
     /* _______________ can edit below this line _______________ */
 
 	janrain.settings.appId = '{$app_settings['appid']}';
-	janrain.settings.tokenUrl = '{$app_settings['appurl']}';
+	janrain.settings.appUrl = '{$app_settings['appurl']}';
 	janrain.settings.providers = {$app_settings['providers']};
 	janrain.settings.tokenUrl = '{$app_settings['token_url']}';
 	janrain.settings.tokenAction = 'event';
