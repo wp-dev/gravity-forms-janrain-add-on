@@ -4,12 +4,12 @@ Plugin Name: Gravity Forms Janrain Add-on
 Description: Integrate Gravity Forms with Janrain Engage social login to pre-fill forms.
 Author: janrain, goldenapples
 Author URI: http://janrain.com
-Version: 0.2
+Version: 0.3
 License: GPL V2 or higher
 
 ================================================================================
 
-Copyright 2012 Janrain, Inc.
+Copyright 2012-2013 Janrain, Inc.
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -119,7 +119,7 @@ function janrain_engage_widget_script( $form_id ) {
 	janrain.settings.fontColor = '#666666';
 	janrain.settings.fontFamily = 'inherit';
 	janrain.settings.backgroundColor = 'transparent';
-	janrain.settings.noReturnExperience = 'true';
+	janrain.settings.noReturnExperience = true;
 	janrain.settings.width = '100%';
 	janrain.settings.borderColor = 'transparent';
 	janrain.settings.borderRadius = '10';
@@ -177,3 +177,5 @@ require_once( plugin_dir_path( __FILE__ ) . 'field-list.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'admin-settings.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'ajax-response.php' );
 
+
+// vi:sw=5 sts=5 noexpandtab
