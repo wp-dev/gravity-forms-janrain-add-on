@@ -20,10 +20,10 @@ function quilt_providers_stylesheet() {
 	if ( !isset( $_GET['page'] ) || !in_array( $_GET['page'], array( 'gf_edit_forms', 'janrain_settings' ) ) )
 		return;
 
-	wp_enqueue_style( 'quilt-providers', 'http://cdn.quilt.janrain.com/2.1.4/providers.css' );
+	wp_enqueue_style( 'quilt-providers', 'http://cdn.quilt.janrain.com/2.2.5/providers.css' );
 
 	// Providers css file for older version of IE
-	wp_register_style( 'quilt-providers-ie', 'http://cdn.quilt.janrain.com/2.1.4/providers-ie.css' );
+	wp_register_style( 'quilt-providers-ie', 'http://cdn.quilt.janrain.com/2.2.5/providers-ie.css' );
 	$GLOBALS['wp_styles']->add_data( 'quilt-providers-ie', 'conditional', 'lte IE 8' );
 	wp_enqueue_style( 'quilt-providers-ie' );
 
@@ -32,6 +32,7 @@ function quilt_providers_stylesheet() {
 }
 
 add_action( 'admin_enqueue_scripts', 'quilt_providers_stylesheet' );
+
 
 /**
  * Display the option to "prefill this field/ from".
@@ -65,6 +66,7 @@ function janrain_engage_field_prepop_settings( $position, $form_id ) {
 
 add_action( 'gform_field_standard_settings', 'janrain_engage_field_prepop_settings', 10, 2 );
 
+
 /**
  * Tooltips for the relevant fields added by this plugin
  *
@@ -72,11 +74,13 @@ add_action( 'gform_field_standard_settings', 'janrain_engage_field_prepop_settin
  */
 function janrain_engage_gforms_tooltips( $tooltips ) {
 	$tooltips['field_social_prefill'] = '<h6>' .  __( 'Prefill from Social Profile', 'gforms_janrain' ) . '</h6>' .
-		__( 'If a social login field is defined, you can select a field from the user\'s social profile to prefill this field with, once they authenticate.', 'gforms_janrain' );
+        __( 'If a social login field is defined, you can select a field from the user\'s ' .
+			 'social profile to prefill this field with, once they authenticate.', 'gforms_janrain' );
 	return $tooltips;
 }
 
 add_filter( 'gform_tooltips', 'janrain_engage_gforms_tooltips' );
+
 
 /**
  * Common Javascript run on the gf_edit_forms page, to initialize the new fields
@@ -100,13 +104,14 @@ function janrain_gforms_editor_script(){
 
 	// Update the form meta json object when these fields are updated
 	jQuery('.social_prefill').on( 'click', function() {
-		SetFieldProperty( 'socialPrefill', this.checked);
-		$jSelect = jQuery('select.field_social_prefill_with');
-		if ( this.checked ) {
-			$jSelect.removeAttr('disabled');
+		SetFieldProperty( 'socialPrefill', jQuery(this).is(':checked') );
+		$jSelect = jQuery(this).closest('li').find('select.field_social_prefill_with');
+        console.log( this, $jSelect );
+		if ( jQuery(this).is(':checked') ) {
+			$jSelect.prop( 'disabled', false );
 			SetFieldProperty( 'socialPrefillWith', $jSelect.val() );
 		} else {
-			$jSelect.attr( 'disabled', 'disabled' );
+			$jSelect.prop( 'disabled', true );
 			SetFieldProperty( 'socialPrefillWith', '' );
 		}
 	});
@@ -226,7 +231,7 @@ function janrain_jump_settings_page() {
 				}
 				$providers_text .= '</div>';
 				$providers_text .= '<p>' . sprintf(
-					__( 'Provider you wish to use not shown here? Check your <a href="%s">rpxnow dashboard</a> to make sure its enabled there.', 'gforms_janrain' ),
+					__( 'Provider you wish to use not shown here? Check your <a href="%s">Janrain dashboard</a> to make sure its enabled there.', 'gforms_janrain' ),
 					"https://rpxnow.com/relying_parties/$app_url_base/setup_widget"
 					) . '</p>';
 			}
@@ -237,7 +242,7 @@ function janrain_jump_settings_page() {
 <div class="wrap">
 	<h2>' . __( 'Janrain Engage Integration', 'gforms_janrain' ) .'</h2>
 	<h3>' . __( 'Janrain App Configuration', 'gforms_janrain' ) . '</h3>
-	<p class="description">' . __( 'You will need to enter the Application ID and URL for your Engage application. This information can be obtained from your dashboard at <a href="http://rpxnow.com">http://rpxnow.com</a>.', 'gforms_janrain' ) . '</p>
+	<p class="description">' . __( 'You will need to enter the Application ID and URL for your Engage application. This information can be obtained from your dashboard at <a href="http://dashboard.janrain.com">dashboard.janrain.com</a>.', 'gforms_janrain' ) . '</p>
 	<form action="" method="POST">
 	' . wp_nonce_field( 'janrain_settings', '_wpnonce', true, false ) . '
 	<table class="form-table">
@@ -307,3 +312,4 @@ function janrain_engage_widget_field_admin_button( $field_groups ) {
 
 add_action( 'gform_add_field_buttons', 'janrain_engage_widget_field_admin_button' );
 
+// vi:sw=5 sts=5 noexpandtab
